@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: passw0rd!
+      ACCEPT_EULA: 'Y'
+    ports:
+    - 1435:1433 # using different port in case other sql server is there
+    #volumes:
+    #- ./mssql:/var/opt/mssql/data
+
+    # Server=localhost,1435;Database=ToTheCLoud;User ID=sa;Password=passw@rd!
+
+  redis:
+    image: redis:alpine
+    ports:
+    - 6379:6379
+    #volumes:
+    #- ./redis:/data

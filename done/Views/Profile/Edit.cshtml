@@ -1,0 +1,76 @@
+﻿@model ProfileViewModel
+
+@{
+    ViewBag.Title = Model.Id > 0 ? "Edit the Profile" : "Add a Profile";
+}
+
+<div class="container">
+    <div>
+        <a asp-action="Index">
+            <i class="fa-solid fa-angles-left"></i>
+            back to list
+        </a>
+    </div>
+    <div class="mb-3">&nbsp;</div>
+
+    <h1>@ViewBag.Title</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <!form class="row g-3" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group col-12">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" required maxlength="200" placeholder="First LastName" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group col-12">
+                    <label asp-for="Address" class="control-label"></label>
+                    <input asp-for="Address" class="form-control" maxlength="200" placeholder="123 Anystreet" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-group col-4">
+                    <label asp-for="City" class="control-label"></label>
+                    <input asp-for="City" class="form-control" maxlength="100" placeholder="Anytown" />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+                <div class="form-group col-4">
+                    <label asp-for="State" class="control-label"></label>
+                    <input asp-for="State" class="form-control" maxlength="2" placeholder="ZA" />
+                    <span asp-validation-for="State" class="text-danger"></span>
+                </div>
+                <div class="form-group col-4">
+                    <label asp-for="Zip" class="control-label"></label>
+                    <input asp-for="Zip" class="form-control" maxlength="10" placeholder="12345" />
+                    <span asp-validation-for="Zip" class="text-danger"></span>
+                </div>
+                <div class="form-group col-12">
+                    @if (Model.ProfilePic != null)
+                    {
+                        <img src="@Model.ProfilePic" alt="@Model.Name" class="img" />
+                    }
+                    <label for="ProfilePic" class="control-label">Change Profile Pic</label>
+                    <input name="ProfilePic" type="file" accept=".gif,.jpg,.jpeg,.png" />
+                    <span asp-validation-for="ProfilePic" class="text-danger"></span>
+                </div>
+                <div class="form-group col-12">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    @Html.AntiForgeryToken()
+                </div>
+            </!form>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .img {
+            max-width: 200px;
+            max-height: 200px;
+            display: block;
+        }
+        input[type='file'] {
+            display: block;
+        }
+    </style>
+}

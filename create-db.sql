@@ -1,0 +1,24 @@
+USE [master]
+GO
+
+CREATE DATABASE [ToTheCloud]
+ CONTAINMENT = NONE
+ ON  PRIMARY ( NAME = N'ToTheCloud', FILENAME = N'ToTheCloud.mdf' )
+ LOG ON ( NAME = N'ToTheCloud_log', FILENAME = N'ToTheCloud.ldf' )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+
+USE [ToTheCloud]
+GO
+
+CREATE TABLE [dbo].[Profiles](
+	[Id] [INT] IDENTITY(1,1) NOT NULL,
+	[Name] [NVARCHAR](200) NOT NULL,
+	[Address] [NVARCHAR](200) NULL,
+	[City] [NVARCHAR](100) NULL,
+	[State] [NVARCHAR](2) NULL,
+	[Zip] [NVARCHAR](10) NULL,
+	[ProfilePic] [NVARCHAR](200) NULL,
+ CONSTRAINT [PK_Profiles] PRIMARY KEY CLUSTERED ( [Id] ASC ) ON [PRIMARY]
+) ON [PRIMARY]
+GO

@@ -1,0 +1,88 @@
+﻿@model ProfileListViewModel
+
+@{
+    ViewBag.Title = "Profiles";
+}
+
+<div class="container">
+    <h1>@ViewBag.Title</h1>
+
+    @if (Model.StatusMessage != null) {
+        <div class="alert alert-success" role="alert">
+            @switch (Model.StatusMessage)
+            {
+                case CrudStatus.Created:
+                    <span>Successfully created the profile</span>
+                    break;
+                case CrudStatus.Deleted:
+                    <span>Successfully deleted the profile</span>
+                    break;
+                case CrudStatus.Saved:
+                    <span>Successfully updated the profile</span>
+                    break;
+                default:
+                    <span>Unknown message</span>
+                    break;
+            }
+        </div>
+    }
+
+    <p>
+        <a class="btn btn-primary" asp-action="Create">
+            <i class="fa-solid fa-plus"></i>
+        </a>
+    </p>
+    <div class="row">
+        @foreach (ProfileViewModel profile in Model.Profiles) {
+            <div class="col-md-4 col-sm-6">
+                <div class="profile">
+                    <div class="img-border">
+                        @if (profile.ProfilePic != null)
+                        {
+                            <img src="@profile.ProfilePic" alt="@profile.Name" />
+                        }
+                        else
+                        {
+                            <img src="/img/default-profile.jpg" alt="@profile.Name" />
+                        }
+                    </div>
+                    <h3 class="text-center">@profile.Name</h3>
+                    <div class="text-center">
+                        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@profile.Id"><i class="fa-solid fa-pencil"></i></a>
+                        <form method="post" asp-action="Delete">
+                            <input type="hidden" name="id" value="@profile.Id">
+                            <button class="btn btn-danger" type="submit">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div> 
+        }
+        @if (Model.Profiles.Count < 1)
+        {
+            <div class="col-12">
+                <p>No profiles yet.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@section Styles {
+    <style>
+    .img-border {
+        width: 100%;
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .img-border img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+    form {
+        display: inline;
+    }
+    </style>
+}
